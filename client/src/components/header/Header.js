@@ -16,7 +16,7 @@ export default function Header() {
     })
 
      // -----------fillData-----------------
-    let fillData = (e)=>{
+    let fillDataHandler = (e)=>{
         const newData = {...formData}
         newData[e.target.id]=e.target.value.toLowerCase() ;
         setFormData(newData)
@@ -77,7 +77,7 @@ export default function Header() {
                     <div className='pc-input-main'>
                         <form >
                             <div className='pc-input-parentflex'>
-                                <input onChange={(e) => { fillData(e) }} value={formData.stockName} id="stockName" className='pc-input' placeholder='Search stocks ...' type='text'></input>
+                                <input onChange={(e) => { fillDataHandler(e) }} value={formData.stockName} id="stockName" className='pc-input' placeholder='Search stocks ...' type='text'></input>
                                 <button  className='pc-input-button' type="submit">Submit</button>
                             </div>
                             <ul className='pc-input-list'>

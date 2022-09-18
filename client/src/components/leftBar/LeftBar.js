@@ -51,7 +51,6 @@ export default function LeftBar(props) {
 
             {
               cmpData.map((currVal, index) => {
-                { console.log(currVal, "secound") }
                 return <Parameter val={currVal} key={index}></Parameter>
               })
 
