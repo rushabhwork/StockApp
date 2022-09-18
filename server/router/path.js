@@ -11,12 +11,16 @@ const objData = require('../objdata')
 
 
 
-router.get('/leftBar', async (req, res) => {
+router.all('/leftBar', async (req, res) => {
+    let userStockCode 
+    if(req.body.compnyCode){userStockCode =req.body.compnyCode 
+    }
+    else{ userStockCode = "INFY"}
     let leftBarJsonData = []
 
     // ======METHOD 2 YAHOOFINANCE2 =====================
 
-    const results = await yahooFinance.quoteSummary("INFY.NS", {
+    const results = await yahooFinance.quoteSummary(`${userStockCode}.NS`, {
         // 1. Try adding, removing or changing modules
         // You'll get suggestions after typing first quote mark (")
         modules: ["price", "financialData", "earningsHistory", "balanceSheetHistory"]
@@ -39,8 +43,9 @@ router.get('/leftBar', async (req, res) => {
         leftBarJsonData.push({ "IntrencisVal": IntrencisVal })
         // console.log( results)
     } else { leftBarJsonData.push({ "IntrencisVal": "nodata" }) }
-
-    // =========================Sending responce Data===========================
+    
+    userStockCode = ""
+    // ============Sending responce Data===========
     res.send(JSON.stringify(leftBarJsonData));
 
 
@@ -50,22 +55,21 @@ router.get('/leftBar', async (req, res) => {
 router.post("/stockName", async(req,res)=>{
 
 let userStock = req.body.stockName
-
 let fetchStockList = {}
 let arr =[]
-// console.log(userStock)
+ console.log("userStock") 
 
 for(let item in objData.objdata){
-
-    // console.log(userStock)
     let i = item.toLowerCase()
-
     if(i.includes(userStock) && userStock != ""){
-         fetchStockList[item]=objData.objdata[item]
-      }
-      console.log(arr , item) 
-}
-res.send(fetchStockList)
+        fetchStockList.companyName = item
+        fetchStockList.compnyCode =objData.objdata[item];
+        //  fetchStockList[item]=objData.objdata[item];
+         arr.push(fetchStockList)
+         fetchStockList = {}
+      }; 
+};
+res.send(arr)
 
 });
 

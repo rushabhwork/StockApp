@@ -6,7 +6,7 @@ import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 // import { makeStyles } from '@material-ui/core/styles';
 import useStyles from './HeaderTheme';
 
-
+let  debouncing 
 export default function Header() {
     const classes = useStyles();
     
@@ -16,30 +16,51 @@ export default function Header() {
     })
 
      // -----------fillData-----------------
-
     let fillData = (e)=>{
         const newData = {...formData}
         newData[e.target.id]=e.target.value.toLowerCase() ;
         setFormData(newData)
 
-         // POST request using fetch()
-        fetch("http://localhost:5000/listData/stockName", {
-
+        //  POST request using fetch()
+        //  Debouncing function 
+            clearTimeout(debouncing)
+        
+            debouncing = setTimeout (()=>{
+            fetch("http://localhost:5000/listData/stockName", {
             method: "POST",
             body: JSON.stringify({
-                stockName: formData.stockName
+                  stockName: formData.stockName
             }),
             headers: {
                 "Content-type": "application/json; charset=UTF-8"
             }
-        }).then(response => response.json())
-        .then((json) => {
-            setList(json)
-            console.log(json)
-        });
-    }
+            }).then(response => response.json() )
+            .then((json) => {
+                setList(json);
+                 console.log(json)
+            });
+
+        },400);
+        
+    };
 
     // -----------SubmitStock-----------------
+
+    let setInputValHandler =(e,compnyCode)=>{
+     setFormData({stockName : e.target.outerText})
+
+     fetch("http://localhost:5000/listData/leftBar", {
+            method: "POST",
+            body: JSON.stringify({compnyCode}),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+            }).then(response => response.json() )
+            .then((json) => {                
+                 console.log(json)
+            });
+
+    }
 
 
     return (
@@ -59,8 +80,8 @@ export default function Header() {
                             <button  className='pc-input-button' type="submit">Submit</button>
                             <ul className='pc-input-list'>
 
-                                
-                                <li>bbdbm nb bn</li>
+                               {list ? list.map(( stockCode, index) =>  <li key={index} onClick={(e)=>setInputValHandler(e, stockCode.compnyCode)}> {stockCode.companyName} </li>) : "" }
+                                {/* <li>bbdbm nb bn</li> */}
                                
                             </ul>
                         </form>
