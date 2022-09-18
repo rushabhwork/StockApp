@@ -59,7 +59,7 @@ export default function Header() {
             .then((json) => {                
                  console.log(json)
             });
-
+            setList(null)
     }
 
 
@@ -76,12 +76,13 @@ export default function Header() {
 
                     <div className='pc-input-main'>
                         <form >
-                            <input onChange={(e) => { fillData(e) }} value={formData.stockName} id="stockName" className='pc-input' placeholder='Search stocks ...' type='text'></input>
-                            <button  className='pc-input-button' type="submit">Submit</button>
+                            <div className='pc-input-parentflex'>
+                                <input onChange={(e) => { fillData(e) }} value={formData.stockName} id="stockName" className='pc-input' placeholder='Search stocks ...' type='text'></input>
+                                <button  className='pc-input-button' type="submit">Submit</button>
+                            </div>
                             <ul className='pc-input-list'>
 
                                {list ? list.map(( stockCode, index) =>  <li key={index} onClick={(e)=>setInputValHandler(e, stockCode.compnyCode)}> {stockCode.companyName} </li>) : "" }
-                                {/* <li>bbdbm nb bn</li> */}
                                
                             </ul>
                         </form>

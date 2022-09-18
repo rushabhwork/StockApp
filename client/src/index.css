@@ -54,10 +54,16 @@ code {
   box-sizing: border-box;
   height: 1.7rem;
   border: 1px solid rgb(210, 207, 207);
+  outline: none;
   border-radius: 2px 2px 0px 0px;
+  
 }
 .pc-input-button{
   display: inline;
+}
+.pc-input-parentflex{
+  display: flex;
+  flex-direction: row;
 }
 /* width */
 ::-webkit-scrollbar {

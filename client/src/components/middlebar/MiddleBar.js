@@ -2,7 +2,6 @@ import React from 'react';
 import Tabmiddle from './Tabmiddle';
 import {  Container } from '@mui/material'
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
-import axios from 'axios-react';
 
 
 export default function MiddleBar() {
