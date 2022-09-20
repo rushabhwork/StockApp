@@ -6,8 +6,14 @@ import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 
 import useStyles from './ParemeterTheme';
 
+import { useSelector, useDispatch } from 'react-redux'
+import { decrement, increment } from '../../../redux/slice/slice'
+
+
 
 export default function Parameter(props) {
+  const count = useSelector((state) => state)
+  console.log(count)
   const classes = useStyles();
   let keyValPair = Object.entries(props.val)
   return (
