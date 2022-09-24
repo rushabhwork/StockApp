@@ -6,26 +6,23 @@ import useStyles from './LeftBarTheme';
 import CurrentPrice from './currentPrice/CurrentPrice'
 import Parameter from './parameter/Parameter'
 
+import { useSelector, useDispatch } from 'react-redux'
+import { registerCtx, updateCtx, delectCtx} from '../../redux/slice/slice'
 
 export default function LeftBar(props) {
   const classes = useStyles();
+
+  const ctxState = useSelector((state) => state);
+  const dispatch = useDispatch()
+
   let [cmpData, setcmpData] = useState([])
 
+console.log( ctxState.ctx.stockAnalysisData, "leftbar")
+
   useEffect(() => {
-    // -----------------------Calling API and sending to parementer comp --------------------------
-    fetch('http://localhost:5000/listData/leftBar')
-      .then(response => {
-        let data = response.json()
-        return data
-      }).then(data => {
-        setcmpData(data)
-        // console.log(data)
-      }).catch(error => {
-        console.log(error)
-      });
+      setcmpData(ctxState.ctx.stockAnalysisData )
 
-  }, [])
-
+  }, [ctxState.ctx.stockAnalysisData , cmpData])
   return (
     <div>
 
@@ -50,9 +47,9 @@ export default function LeftBar(props) {
             {/* --------------StockParameter----------- */}
 
             {
-              cmpData.map((currVal, index) => {
+             cmpData ? cmpData.map((currVal, index) => {
                 return <Parameter val={currVal} key={index}></Parameter>
-              })
+              }) : ''
 
             }
             <Grid item xs>

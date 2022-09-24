@@ -1,21 +1,30 @@
-import React, { useState } from 'react'
-import { Typography, Stack, AppBar, Toolbar, IconButton, Badge, Divider, TextField, Autocomplete, Hidden, Container, GridListTile, ListSubheader } from '@mui/material'
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux'
+import { registerCtx, updateCtx, delectCtx} from '../../redux/slice/slice'
+
+
+import { Typography, Stack, AppBar, Toolbar, IconButton, Badge, Divider, TextField, Autocomplete, Hidden, Container, GridListTile, ListSubheader, Input } from '@mui/material'
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 // import { makeStyles } from '@material-ui/core/styles';
 import useStyles from './HeaderTheme';
 
+
+
 let  debouncing 
 export default function Header() {
     const classes = useStyles();
+
+    const ctxState = useSelector((state) => state);
+    const dispatch = useDispatch()
     
     const [list ,setList]= useState()
     const [formData, setFormData] = useState({
         stockName: ""
     })
 
-     // -----------fillData-----------------
+     // -----------FillData and Debouncing-----------------
     let fillDataHandler = (e)=>{
         const newData = {...formData}
         newData[e.target.id]=e.target.value.toLowerCase() ;
@@ -37,7 +46,7 @@ export default function Header() {
             }).then(response => response.json() )
             .then((json) => {
                 setList(json);
-                 console.log(json)
+                //  console.log(json)
             });
 
         },400);
@@ -48,6 +57,11 @@ export default function Header() {
 
     let setInputValHandler =(e,compnyCode)=>{
      setFormData({stockName : e.target.outerText})
+      
+    //   --------featching data after selecting value from header dropdown and updating to Reduxctx--------
+    // @Input  : state :  new selected stock data
+    // @Output : object :  new Updated lefBar stock values
+
 
      fetch("http://localhost:5000/listData/leftBar", {
             method: "POST",
@@ -55,11 +69,14 @@ export default function Header() {
             headers: {
                 "Content-type": "application/json; charset=UTF-8"
             }
-            }).then(response => response.json() )
+            })
+            .then(response => response.json() )
             .then((json) => {                
-                 console.log(json)
-            });
-            setList(null)
+                 console.log(json, "header")
+                 dispatch(registerCtx({'stockAnalysisData' : json}) )
+            })
+             ;
+     setList(null)
     }
 
 

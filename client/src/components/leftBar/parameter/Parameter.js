@@ -1,4 +1,8 @@
 import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { registerCtx, updateCtx, delectCtx} from '../../../redux/slice/slice'
+
+
 import { Typography, ListItem, List, Divider, ListItemAvatar, Avatar, ListItemText } from '@mui/material'
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
@@ -6,14 +10,16 @@ import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 
 import useStyles from './ParemeterTheme';
 
-import { useSelector, useDispatch } from 'react-redux'
-import { decrement, increment } from '../../../redux/slice/slice'
-
 
 
 export default function Parameter(props) {
-  const count = useSelector((state) => state)
-  console.log(count)
+  const count = useSelector((state) => state);
+  const dispatch = useDispatch()
+  
+
+  console.log({"count":"paremeter"})
+
+
   const classes = useStyles();
   let keyValPair = Object.entries(props.val)
   return (
@@ -27,12 +33,12 @@ export default function Parameter(props) {
                 <ArrowDropUpIcon></ArrowDropUpIcon>
               </Avatar>
             </ListItemAvatar>
+            {/* {dispatch(registerCtx({ key : "dhdh"} ))} */}
             <ListItemText className={classes.size}>
-              <p className={classes.title}>{keyValPair[0][0]}</p>
+              <p className={classes.title} onClick={()=> dispatch( registerCtx({"count":"paremeter"}) )  }>{keyValPair[0][0]}</p>
               <p className={classes.subtitle}>{keyValPair[0][1]}</p>
-            </ListItemText>
+            </ListItemText>s
           </ListItem>
-
           <Divider variant="inset" component="li" />
         </List>
       </div>

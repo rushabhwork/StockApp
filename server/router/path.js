@@ -9,6 +9,8 @@ const objData = require("../objdata");
 
 //  -----------------------IIFY function -----------------------
 
+let userStock
+
 router.all("/leftBar", async (req, res) => {
   let userStockCode;
   if (req.body.compnyCode) {
@@ -56,9 +58,9 @@ router.all("/leftBar", async (req, res) => {
   // ============Sending responce Data===========
   res.send(JSON.stringify(leftBarJsonData));
 });
-
+// --------------------POST---------------
 router.post("/stockName", async (req, res) => {
-  let userStock = req.body.stockName;
+  userStock = req.body.stockName;
   let fetchStockList = {};
   let arr = [];
   console.log("userStock");

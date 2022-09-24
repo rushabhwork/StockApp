@@ -10,21 +10,21 @@ export default function Home() {
     const classes = useStyles();
 
     let [apiData, setapiData] = useState("");
-    useEffect(() => {
-        // -----------------------Calling API--------------------------
-        fetch('http://localhost:5000/listData/leftBar')
-            .then(response => {
-                let data = response.json()
-                return data
-            }).then(data => {
-                setapiData(data)
-                // console.log(data)
-            }).catch(error => {
-                console.log(error)
-            });
+    // useEffect(() => {
+    //     // -----------------------Calling API--------------------------
+    //     fetch('http://localhost:5000/listData/leftBar')
+    //         .then(response => {
+    //             let data = response.json()
+    //             return data
+    //         }).then(data => {
+    //             setapiData(data)
+    //             // console.log(data)
+    //         }).catch(error => {
+    //             console.log(error)
+    //         });
 
-    }, [])
-
+    // }, [])
+    console.log("home")
     return (
         <div>
             {/* -----------HEADER---------- */}
