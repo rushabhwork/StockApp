@@ -1,6 +1,7 @@
 import React from 'react'
 import {  Container,Paper,Box,Tabs,Tab,Typography } from '@mui/material';
 import PropTypes from 'prop-types';
+import StockPriceGraph from '../../feature/graphs/StockPriceGraph'
 
 // import Tabs from '@mui/material/Tabs';
 // import Tab from '@mui/material/Tab';
@@ -64,7 +65,7 @@ export default function Tabmiddle() {
                   {/* --------TAB CONTENT-------- */}
                   
                     <TabPanel value={value} index={0}>
-                      Item One gbbbbbbbbbbbbbbbbbbb
+                       <StockPriceGraph></StockPriceGraph>
                     </TabPanel>
                     <TabPanel value={value} index={1}>
                       Item Twobgfffffffffffff

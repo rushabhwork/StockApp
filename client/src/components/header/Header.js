@@ -35,7 +35,7 @@ export default function Header() {
             clearTimeout(debouncing)
         
             debouncing = setTimeout (()=>{
-            fetch("http://localhost:5000/listData/stockName", {
+            fetch("http://localhost:5000/listData/stockName",{
             method: "POST",
             body: JSON.stringify({
                   stockName: formData.stockName
@@ -57,8 +57,8 @@ export default function Header() {
 
     let setInputValHandler =(e,compnyCode)=>{
      setFormData({stockName : e.target.outerText})
-      
-    //   --------featching data after selecting value from header dropdown and updating to Reduxctx--------
+     dispatch( registerCtx({stockKey : e.target.outerText , stockValue : "stockname"}) )
+    //   --------featching data after selecting value from header dropdown and updating to Reduxctx for leftBar--------
     // @Input  : state :  new selected stock data
     // @Output : object :  new Updated lefBar stock values
 
@@ -71,12 +71,22 @@ export default function Header() {
             }
             })
             .then(response => response.json() )
-            .then((json) => {                
+            .then((json) => {
                  console.log(json, "header")
-                 dispatch(registerCtx({'stockAnalysisData' : json}) )
+                 dispatch(registerCtx({'stockKey': 'stockAnalysisData','stockValue' : json}) )
             })
              ;
-     setList(null)
+     setList(null);
+
+    //    --------featching data after selecting value from header dropdown and updating to Reduxctx for Graph--------
+    // @Input  : state :  new selected stock data
+    // @Output : object :  new Updated lefBar stock values
+
+     fetch("http://localhost:5000/listData/stockPriceGraph")
+        .then(response => response.json() )
+        .then((json) => {
+            dispatch(registerCtx({'stockKey': 'stockGraphData','stockValue' : json}) )
+        }).catch((err)=> console.log(err));
     }
 
 

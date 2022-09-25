@@ -11,7 +11,12 @@ export const ctxSlice = createSlice({
       // doesn't actually mutate the state because it uses the Immer library,
       // which detects changes to a "draft state" and produces a brand new
       // immutable state based off those changes
-      let obj = { stockAnalysisData : action.payload.stockAnalysisData}
+      // let Skey = action.payload.stockKey ;
+      // let Svalue =  action.payload.stockValue
+      // let obj = { Skey : Svalue}
+      let obj ={...state}
+      obj[action.payload.stockKey] =  action.payload.stockValue
+      // let obj = { stockAnalysisData : action.payload.stockAnalysisData}
       return obj
       // state.action.payload.key = action.payload.val
     },

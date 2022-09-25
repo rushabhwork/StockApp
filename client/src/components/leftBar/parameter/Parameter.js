@@ -15,10 +15,6 @@ import useStyles from './ParemeterTheme';
 export default function Parameter(props) {
   const count = useSelector((state) => state);
   const dispatch = useDispatch()
-  
-
-  console.log({"count":"paremeter"})
-
 
   const classes = useStyles();
   let keyValPair = Object.entries(props.val)
@@ -33,7 +29,6 @@ export default function Parameter(props) {
                 <ArrowDropUpIcon></ArrowDropUpIcon>
               </Avatar>
             </ListItemAvatar>
-            {/* {dispatch(registerCtx({ key : "dhdh"} ))} */}
             <ListItemText className={classes.size}>
               <p className={classes.title} onClick={()=> dispatch( registerCtx({"count":"paremeter"}) )  }>{keyValPair[0][0]}</p>
               <p className={classes.subtitle}>{keyValPair[0][1]}</p>

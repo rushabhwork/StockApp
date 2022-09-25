@@ -17,8 +17,6 @@ export default function LeftBar(props) {
 
   let [cmpData, setcmpData] = useState([])
 
-console.log( ctxState.ctx.stockAnalysisData, "leftbar")
-
   useEffect(() => {
       setcmpData(ctxState.ctx.stockAnalysisData )
 
